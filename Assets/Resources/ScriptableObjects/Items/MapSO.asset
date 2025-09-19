@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Items.ItemSO
   _itemType: 1
   _name: Map
-  _description: 
-  _icon: {fileID: 0}
+  _description: Map of the area
+  _icon: {fileID: 21300000, guid: cce6a63ea5de9f24b87a77fc183cadb7, type: 3}
   _price: 50
   _isInfinite: 1
+  _cooldown: 0
+  _actions: []

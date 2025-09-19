@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   _itemType: 1
   _name: Healing Potion
-  _description: 
-  _icon: {fileID: 0}
+  _description: Powerful and tasty
+  _icon: {fileID: 21300000, guid: 1b292bdaedc41a64ab5ff8d2468c25e3, type: 3}
   _price: 5
   _isInfinite: 0
+  _cooldown: 2
+  _actions:
+  - {fileID: 11400000, guid: edca94a8371ea6449865c327938ce247, type: 2}

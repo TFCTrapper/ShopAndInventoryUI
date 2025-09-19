@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Inventory
 {
@@ -10,11 +11,16 @@ namespace Inventory
         [Serializable]
         public class InventoryItem
         {
-            public ItemSO Item { get => _item; set => _item = value; }
+            public ItemSO ItemSO { get => _itemSO; set => _itemSO = value; }
             public int Count { get => _count; set => _count = value; }
+            public float LastUseTime { get => _lastUseTime; set => _lastUseTime = value; }
             
-            [SerializeField] private ItemSO _item;
+            [SerializeField] private ItemSO _itemSO;
             [SerializeField] private int _count;
+            [SerializeField] private float _lastUseTime;
+            
+            public bool OnCooldown(float currentTime) =>
+                _itemSO != null && (currentTime - _lastUseTime) < _itemSO.Cooldown;
         }
 
         public Action<InventoryItem> InventoryItemCountChangedAction { get; set; }
@@ -25,10 +31,10 @@ namespace Inventory
 
         public void AddItem(ItemSO item)
         {
-            InventoryItem inventoryItem = _inventoryItems.Find(x => x.Item == item);
+            InventoryItem inventoryItem = _inventoryItems.Find(x => x.ItemSO == item);
             if (inventoryItem == null)
             {
-                _inventoryItems.Add(new InventoryItem { Item = item, Count = item.IsInfinite ? -1 : 1 });
+                _inventoryItems.Add(new InventoryItem { ItemSO = item, Count = item.IsInfinite ? -1 : 1 });
             }
             else
             {
@@ -39,20 +45,30 @@ namespace Inventory
 
         public InventoryItem GetInventoryItem(ItemSO item)
         {
-            return _inventoryItems.Find(x => x.Item == item);
+            return _inventoryItems.Find(x => x.ItemSO == item);
         }
 
         public void UseItem(InventoryItem inventoryItem)
         {
-            if (!inventoryItem.Item.IsInfinite)
+            if (inventoryItem.Count <= 0)
+            {
+                return;
+            }
+            
+            if (!inventoryItem.ItemSO.IsInfinite)
             {
                 inventoryItem.Count--;
-                //TODO: Show -- animation
+                
                 if (inventoryItem.Count <= 0)
                 {
                     _inventoryItems.Remove(inventoryItem);
-                    //TODO: Show removal animation
                 }
+            }
+
+            var useContext = new UseContext();
+            if (inventoryItem.ItemSO.CanUse(useContext, inventoryItem, out var reason))
+            {
+                inventoryItem.ItemSO.Use(useContext, inventoryItem);
             }
         }
     }

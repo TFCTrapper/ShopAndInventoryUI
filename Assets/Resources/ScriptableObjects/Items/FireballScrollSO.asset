@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   _itemType: 0
   _name: Fireball Scroll
-  _description: 
-  _icon: {fileID: 0}
+  _description: Fire! Burn your enemies with fire!
+  _icon: {fileID: 21300000, guid: 135f5f4a84a24fc479565d81b7e15fd5, type: 3}
   _price: 10
   _isInfinite: 0
+  _cooldown: 2
+  _actions:
+  - {fileID: 11400000, guid: e7e989088504dae4da3599bcbe7a9d76, type: 2}

@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.7
+  m_fontSize: 3
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.25
+  m_fontSize: 5
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.2
+  m_fontSize: 5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -727,11 +727,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5793f180812d02345a290349357b81f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemCard
+  _itemSO: {fileID: 0}
   _iconImage: {fileID: 6014075058389472724}
   _nameText: {fileID: 3828161493259644301}
   _descriptionText: {fileID: 4652028736070092712}
-  _buyButton: {fileID: 3722553854349151533}
   _priceText: {fileID: 5353139024496834506}
+  _buyButton: {fileID: 3722553854349151533}
 --- !u!1 &8372190266439862333
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,8 +951,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

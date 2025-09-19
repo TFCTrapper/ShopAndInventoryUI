@@ -20,7 +20,7 @@ public class InventoryGroup : MonoBehaviour
         
         foreach (var inventoryItem in _inventoryManager.InventoryItems)
         {
-            if (inventoryItem.Item.ItemType == itemType)
+            if (inventoryItem.ItemSO.ItemType == itemType)
             {
                 var inventoryItemCard =
                     Instantiate(_itemCardPrefab, _itemsCardsParent).GetComponent<InventoryItemCard>();

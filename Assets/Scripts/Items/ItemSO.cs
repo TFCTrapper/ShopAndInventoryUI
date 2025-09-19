@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Inventory;
+using Items.Actions;
 using UnityEngine;
 
 namespace Items
@@ -11,6 +14,7 @@ namespace Items
         public Sprite Icon => _icon;
         public float Price => _price;
         public bool IsInfinite => _isInfinite;
+        public float Cooldown => _cooldown;
     
         [SerializeField] private ItemType _itemType;
         [SerializeField] private string _name;
@@ -18,5 +22,31 @@ namespace Items
         [SerializeField] private Sprite _icon;
         [SerializeField] private float _price;
         [SerializeField] private bool _isInfinite;
+        [SerializeField] private float _cooldown;
+
+        [Header("Behaviour")]
+        [SerializeField] private List<ItemActionSO> _actions;
+
+        public bool CanUse(UseContext useContext, InventoryManager.InventoryItem inventoryItem, out string reason)
+        {
+            foreach (var action in _actions)
+            {
+                if (!action.CanExecute(useContext, inventoryItem, out reason))
+                {
+                    return false;
+                }
+            }
+
+            reason = null;
+            return true;
+        }
+
+        public void Use(UseContext useContext, InventoryManager.InventoryItem inventoryItem)
+        {
+            foreach (var action in _actions)
+            {
+                action.Execute(useContext, inventoryItem);
+            }
+        }
     }
 }
