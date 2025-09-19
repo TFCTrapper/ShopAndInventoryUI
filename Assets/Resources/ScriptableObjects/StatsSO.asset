@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74c45779f00e7543a74c03e08087114, type: 3}
   m_Name: StatsSO
   m_EditorClassIdentifier: Assembly-CSharp::Stats
-  _currencyCount: 0
+  _currencyCount: 1000

@@ -1,8 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UI;
-using UI.Windows;
 using UI.Windows.Data;
 
 namespace UI.Windows
@@ -11,6 +8,20 @@ namespace UI.Windows
     {
         [SerializeField] private Button _inventoryButton;
         [SerializeField] private Button _shopButton;
+        
+        private MainWindowData _mainWindowData;
+        
+        public override void Show(UIElementData data = null, bool immediately = false)
+        {
+            base.Show(data, immediately);
+
+            if (data != null)
+            {
+                _mainWindowData = data as MainWindowData;
+            }
+
+            OnShowComplete();
+        }
 
         private void OnEnable()
         {
@@ -26,12 +37,21 @@ namespace UI.Windows
 
         private void OnShopButtonClick()
         {
-            (Data as MainWindowData).UIManager.ShowElement<ShopWindow>();
+            UIElementData shopWindowData = new ShopWindowData(
+                _mainWindowData.UIManager,
+                _mainWindowData.ShopManager,
+                _mainWindowData.InventoryManager
+            );
+            _mainWindowData.UIManager.ShowElement<ShopWindow>(shopWindowData);
         }
 
         private void OnInventoryButtonClick()
         {
-            (Data as MainWindowData).UIManager.ShowElement<InventoryWindow>();
+            UIElementData inventoryWindowData = new InventoryWindowData(
+                (Data as MainWindowData).UIManager,
+                (Data as MainWindowData).InventoryManager
+            );
+            (Data as MainWindowData).UIManager.ShowElement<InventoryWindow>(inventoryWindowData);
         }
     }
 }

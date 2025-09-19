@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3608e7b0f0b6fe4ea9ba211a86757cc, type: 3}
   m_Name: HealingPotionSO
   m_EditorClassIdentifier: Assembly-CSharp::Item
+  _itemType: 1
+  _name: Healing Potion
+  _description: 
+  _icon: {fileID: 0}
+  _price: 5
+  _isInfinite: 0

@@ -23,7 +23,11 @@ namespace UI
 
         public virtual void Show(UIElementData data = null, bool immediately = false)
         {
-            Data = data;
+            if (data != null)
+            {
+                Data = data;
+            }
+
             gameObject.SetActive(true);
         }
 
