@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Inventory;
 using Items;
 using UI.Windows.Data;
@@ -14,6 +15,7 @@ namespace UI.Windows
         [SerializeField] private Transform _inventoryGroupsParent;
 
         private InventoryWindowData _inventoryWindowData;
+        private List<InventoryItemCard> _itemCards = new List<InventoryItemCard>();
         
         public override void Show(UIElementData data = null, bool immediately = false)
         {
@@ -29,14 +31,21 @@ namespace UI.Windows
             {
                 Destroy(child.gameObject);
             }
+            
+            _itemCards.Clear();
 
             foreach (ItemType itemType in Enum.GetValues(typeof(ItemType)))
             {
                 var inventoryGroup = Instantiate(_inventoryGroupPrefab, _inventoryGroupsParent).GetComponent<InventoryGroup>();
-                inventoryGroup.Initialize(itemType, _inventoryWindowData.InventoryManager);
+                inventoryGroup.Initialize(itemType, this, _inventoryWindowData.InventoryManager);
             }
 
             OnShowComplete();
+        }
+
+        public void AddItemCard(InventoryItemCard inventoryItemCard)
+        {
+            _itemCards.Add(inventoryItemCard);
         }
         
         private void OnEnable()
@@ -56,7 +65,16 @@ namespace UI.Windows
         
         private void OnInventoryItemCountChanged(InventoryManager.InventoryItem inventoryItem)
         {
-            //TODO
+            var inventoryItemCard = _itemCards.Find(ic => ic.ItemSO == inventoryItem.ItemSO);
+            if (inventoryItemCard != null)
+            {
+                inventoryItemCard.UpdateCount(inventoryItem);
+                if (inventoryItem.Count <= 0)
+                {
+                    Destroy(inventoryItemCard.gameObject);
+                }
+            }
+
         }
     }
 }

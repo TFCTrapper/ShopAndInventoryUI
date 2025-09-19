@@ -39,7 +39,6 @@ namespace Inventory
             else
             {
                 inventoryItem.Count++;
-                InventoryItemCountChangedAction?.Invoke(inventoryItem);
             }
         }
 
@@ -58,6 +57,8 @@ namespace Inventory
             if (!inventoryItem.ItemSO.IsInfinite)
             {
                 inventoryItem.Count--;
+                
+                InventoryItemCountChangedAction?.Invoke(inventoryItem);
                 
                 if (inventoryItem.Count <= 0)
                 {

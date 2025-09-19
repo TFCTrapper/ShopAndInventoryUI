@@ -1,5 +1,6 @@
 using Inventory;
 using Items;
+using UI.Windows;
 using UnityEngine;
 
 public class InventoryGroup : MonoBehaviour
@@ -9,7 +10,10 @@ public class InventoryGroup : MonoBehaviour
     
     private InventoryManager _inventoryManager;
 
-    public void Initialize(ItemType itemType, InventoryManager inventoryManager)
+    public void Initialize(
+        ItemType itemType,
+        InventoryWindow inventoryWindow,
+        InventoryManager inventoryManager)
     {
         _inventoryManager = inventoryManager;
         
@@ -25,6 +29,7 @@ public class InventoryGroup : MonoBehaviour
                 var inventoryItemCard =
                     Instantiate(_itemCardPrefab, _itemsCardsParent).GetComponent<InventoryItemCard>();
                 inventoryItemCard.Initialize(inventoryItem, _inventoryManager);
+                inventoryWindow.AddItemCard(inventoryItemCard);
             }
         }
     }
