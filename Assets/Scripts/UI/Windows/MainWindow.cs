@@ -25,17 +25,17 @@ namespace UI.Windows
 
         private void OnEnable()
         {
-            _inventoryButton.onClick.AddListener(OnInventoryButtonClick);
-            _shopButton.onClick.AddListener(OnShopButtonClick);
+            _inventoryButton.onClick.AddListener(OnInventoryClick);
+            _shopButton.onClick.AddListener(OnShopClick);
         }
 
         private void OnDisable()
         {
-            _inventoryButton.onClick.RemoveListener(OnInventoryButtonClick);
-            _shopButton.onClick.RemoveListener(OnShopButtonClick);
+            _inventoryButton.onClick.RemoveListener(OnInventoryClick);
+            _shopButton.onClick.RemoveListener(OnShopClick);
         }
 
-        private void OnShopButtonClick()
+        private void OnShopClick()
         {
             UIElementData shopWindowData = new ShopWindowData(
                 _mainWindowData.UIManager,
@@ -45,13 +45,13 @@ namespace UI.Windows
             _mainWindowData.UIManager.ShowElement<ShopWindow>(shopWindowData);
         }
 
-        private void OnInventoryButtonClick()
+        private void OnInventoryClick()
         {
             UIElementData inventoryWindowData = new InventoryWindowData(
-                (Data as MainWindowData).UIManager,
-                (Data as MainWindowData).InventoryManager
+                _mainWindowData.UIManager,
+                _mainWindowData.InventoryManager
             );
-            (Data as MainWindowData).UIManager.ShowElement<InventoryWindow>(inventoryWindowData);
+            _mainWindowData.UIManager.ShowElement<InventoryWindow>(inventoryWindowData);
         }
     }
 }
