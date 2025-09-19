@@ -10,12 +10,12 @@ namespace Shop
     {
         public Action<float> CurrencyCountChangedAction { get; set; }
 
-        public List<ItemSO> Items => _items;
+        public List<ItemSO> Items => _shopSO.Items;
         public float CurrencyCount => _stats.CurrencyCount;
 
         [SerializeField] private InventoryManager _inventoryManager;
         [SerializeField] private StatsSO _stats;
-        [SerializeField] private List<ItemSO> _items;
+        [SerializeField] private ShopSO _shopSO;
 
         public bool TryPurchaseItem(ItemSO item)
         {

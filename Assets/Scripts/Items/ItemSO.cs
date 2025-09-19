@@ -27,7 +27,7 @@ namespace Items
         [Header("Behaviour")]
         [SerializeField] private List<ItemActionSO> _actions;
 
-        public bool CanUse(UseContext useContext, InventoryManager.InventoryItem inventoryItem, out string reason)
+        public bool CanUse(UseContext useContext, InventoryItem inventoryItem, out string reason)
         {
             foreach (var action in _actions)
             {
@@ -41,12 +41,14 @@ namespace Items
             return true;
         }
 
-        public void Use(UseContext useContext, InventoryManager.InventoryItem inventoryItem)
+        public void Use(UseContext useContext, InventoryItem inventoryItem)
         {
             foreach (var action in _actions)
             {
                 action.Execute(useContext, inventoryItem);
             }
+
+            inventoryItem.LastUseTime = Time.time;
         }
     }
 }

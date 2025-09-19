@@ -6,9 +6,9 @@ namespace Inventory
 {
     public interface IInventoryManager
     {
-        public Action<InventoryManager.InventoryItem> InventoryItemCountChangedAction { get; set; }
+        public Action<InventoryItem> InventoryItemCountChangedAction { get; set; }
         public void AddItem(ItemSO item);
-        public InventoryManager.InventoryItem GetInventoryItem(ItemSO item);
-        public void UseItem(InventoryManager.InventoryItem inventoryItem);
+        public InventoryItem GetInventoryItem(ItemSO item);
+        public void UseItem(InventoryItem inventoryItem);
     }
 }

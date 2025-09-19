@@ -9,9 +9,9 @@ public class InventoryItemCard : ItemCard
     [SerializeField] private TextMeshProUGUI _countText;
     
     private InventoryManager _inventoryManager;
-    private InventoryManager.InventoryItem _inventoryItem;
+    private InventoryItem _inventoryItem;
     
-    public void Initialize(InventoryManager.InventoryItem inventoryItem, InventoryManager inventoryManager)
+    public void Initialize(InventoryItem inventoryItem, InventoryManager inventoryManager)
     {
         base.Initialize(inventoryItem.ItemSO);
         _inventoryItem = inventoryItem;
@@ -21,7 +21,7 @@ public class InventoryItemCard : ItemCard
         _countText.text = inventoryItem.Count > 0 ? inventoryItem.Count.ToString() : "\u221e";
     }
 
-    public void UpdateCount(InventoryManager.InventoryItem inventoryItem)
+    public void UpdateCount(InventoryItem inventoryItem)
     {
         _countText.text = inventoryItem.Count.ToString();
     }

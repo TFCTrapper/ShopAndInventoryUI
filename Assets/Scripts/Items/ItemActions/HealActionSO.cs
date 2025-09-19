@@ -11,10 +11,10 @@ namespace Items.ItemActions
         
         public override bool CanExecute(
             UseContext useContext,
-            InventoryManager.InventoryItem invetoryItem,
+            InventoryItem invetoryItem,
             out string reason)
         {
-            if (invetoryItem.ItemSO != null && invetoryItem.OnCooldown(useContext.LastUseTime))
+            if (invetoryItem.ItemSO != null && invetoryItem.OnCooldown(Time.time))
             {
                 reason = "Cooldown";
                 return false;
@@ -24,9 +24,9 @@ namespace Items.ItemActions
             return true;
         }
 
-        public override void Execute(UseContext useContext, InventoryManager.InventoryItem invetoryItem)
+        public override void Execute(UseContext useContext, InventoryItem invetoryItem)
         {
-            //HP++
+            Debug.LogFormat("{0} healed!", _healAmount);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace UI.Windows
             _inventoryWindowData.UIManager.ShowElement<MainWindow>();
         }
         
-        private void OnInventoryItemCountChanged(InventoryManager.InventoryItem inventoryItem)
+        private void OnInventoryItemCountChanged(InventoryItem inventoryItem)
         {
             var inventoryItemCard = _itemCards.Find(ic => ic.ItemSO == inventoryItem.ItemSO);
             if (inventoryItemCard != null)
