@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace UI
 {
-    [CreateAssetMenu(fileName = "UIData", menuName = "Data/UIData")]
-    public class UIData : ScriptableObject
+    [CreateAssetMenu(fileName = "UIElements", menuName = "Scriptable Objects/UIElements")]
+    public class UIElementsSO : ScriptableObject
     {
         public List<UIElement> Elements => _elements;
 

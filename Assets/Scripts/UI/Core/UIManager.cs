@@ -9,17 +9,17 @@ namespace UI
 {
     public class UIManager : MonoBehaviour, IUIManager
     {
-        private const string DataPath = "ScriptableObjects/UIData";
+        private const string ElementsPath = "ScriptableObjects/UIElementsSO";
 
-        [Inject] private IUILayersManager _uiLayersManager;
+        [SerializeField] private UILayersManager _uiLayersManager;
 
         private List<IUIElement> _existingElements;
         private List<IUIElement> _spawnedElements = new List<IUIElement>();
         
         public void Initialize()
         {
-            var uiData = Resources.Load<UIData>(DataPath);
-            _existingElements = uiData.Elements.Cast<IUIElement>().ToList();
+            var uiElements = Resources.Load<UIElementsSO>(ElementsPath);
+            _existingElements = uiElements.Elements.Cast<IUIElement>().ToList();
         }
 
         public IUIElement GetElement<T>() where T : IUIElement
@@ -71,12 +71,6 @@ namespace UI
                     e.Hide(immediately);
                 }
             }
-        }
-
-        private void Awake()
-        {
-            ProjectContext.Container.Inject(this);
-            Initialize();
         }
 
         private IUIElement SpawnElement<T>() where T : IUIElement

@@ -14,25 +14,8 @@ namespace UI.Windows
 
         public override void Show(UIElementData data = null, bool immediately = false)
         {
-            if (immediately)
-            {
-                base.Show(data, true);
-                
-                foreach (var button in _buttonsInteractable.Keys)
-                {
-                    button.interactable = _buttonsInteractable[button];
-                }
-                
-                return;
-            }
-
-            gameObject.SetActive(true);
+            base.Show(data, immediately);
             
-            foreach (var button in _buttonsInteractable.Keys)
-            {
-                button.interactable = false;
-            }
-
             OnShowComplete();
         }
 
