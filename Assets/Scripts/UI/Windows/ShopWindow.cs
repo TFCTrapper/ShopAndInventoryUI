@@ -1,5 +1,5 @@
-using System;
-using Shop;
+using Inventory;
+using TMPro;
 using UI.Windows.Data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,7 @@ namespace UI.Windows
     public class ShopWindow : Window
     {
         [SerializeField] private Button _mainWindowButton;
+        [SerializeField] private TextMeshProUGUI _currencyCountText;
         [SerializeField] private GameObject _itemCardPrefab;
         [SerializeField] private Transform _itemsCardsParent;
         
@@ -18,10 +19,13 @@ namespace UI.Windows
         {
             base.Show(data, immediately);
 
-            if (data != null)
+            if (data != null && _shopWindowData != data)
             {
                 _shopWindowData = data as ShopWindowData;
+                _shopWindowData.ShopManager.CurrencyCountChangedAction += OnCurrencyCountChanged;
             }
+
+            _currencyCountText.text = "$" + _shopWindowData.ShopManager.CurrencyCount.ToString();
 
             foreach (Transform child in _itemsCardsParent)
             {
@@ -29,8 +33,13 @@ namespace UI.Windows
             }
             foreach (var itemSO in _shopWindowData.ShopManager.Items)
             {
-                var itemCard = Instantiate(_itemCardPrefab, _itemsCardsParent).GetComponent<ItemCard>();
-                itemCard.Initialize(itemSO);
+                if (itemSO.IsInfinite && _shopWindowData.InventoryManager.GetInventoryItem(itemSO) != null)
+                {
+                    continue;
+                }
+                
+                var itemCard = Instantiate(_itemCardPrefab, _itemsCardsParent).GetComponent<ShopItemCard>();
+                itemCard.Initialize(itemSO, _shopWindowData.ShopManager);
             }
             
             OnShowComplete();
@@ -49,6 +58,11 @@ namespace UI.Windows
         private void OnMainWindowButtonClick()
         {
             _shopWindowData.UIManager.ShowElement<MainWindow>();
+        }
+
+        private void OnCurrencyCountChanged(float currencyCount)
+        {
+            _currencyCountText.text = "$" + currencyCount.ToString();
         }
     }
 }

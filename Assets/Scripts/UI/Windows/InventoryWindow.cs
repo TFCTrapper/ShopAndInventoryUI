@@ -19,9 +19,10 @@ namespace UI.Windows
         {
             base.Show(data, immediately);
 
-            if (data != null)
+            if (data != null && _inventoryWindowData != data)
             {
                 _inventoryWindowData = data as InventoryWindowData;
+                _inventoryWindowData.InventoryManager.InventoryItemCountChangedAction += OnInventoryItemCountChanged;
             }
             
             foreach (Transform child in _inventoryGroupsParent)
@@ -51,6 +52,11 @@ namespace UI.Windows
         private void OnMainWindowButtonClick()
         {
             _inventoryWindowData.UIManager.ShowElement<MainWindow>();
+        }
+        
+        private void OnInventoryItemCountChanged(InventoryManager.InventoryItem inventoryItem)
+        {
+            //TODO
         }
     }
 }

@@ -20,8 +20,12 @@ public class InventoryGroup : MonoBehaviour
         
         foreach (var inventoryItem in _inventoryManager.InventoryItems)
         {
-            var itemCard = Instantiate(_itemCardPrefab, _itemsCardsParent).GetComponent<ItemCard>();
-            itemCard.Initialize(inventoryItem.Item);
+            if (inventoryItem.Item.ItemType == itemType)
+            {
+                var inventoryItemCard =
+                    Instantiate(_itemCardPrefab, _itemsCardsParent).GetComponent<InventoryItemCard>();
+                inventoryItemCard.Initialize(inventoryItem, _inventoryManager);
+            }
         }
     }
 }

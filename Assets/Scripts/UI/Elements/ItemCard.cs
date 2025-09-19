@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class ItemCard : MonoBehaviour
 {
+    public ItemSO ItemSO => _itemSO;
+    
+    [SerializeField] protected ItemSO _itemSO;
     [SerializeField] protected Image _iconImage;
     [SerializeField] protected TextMeshProUGUI _nameText;
-    [SerializeField] protected TextMeshProUGUI _descriptionText;
 
-    public virtual void Initialize(ItemSO itemSo)
+    public virtual void Initialize(ItemSO itemSO)
     {
-        _iconImage.sprite = itemSo.Icon;
-        _nameText.text = itemSo.Name;
-        _descriptionText.text = itemSo.Description;
+        _itemSO = itemSO;
+        _iconImage.sprite = itemSO.Icon;
+        _nameText.text = itemSO.Name;
     }
 }

@@ -1,18 +1,25 @@
 using Items;
+using Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopItemCard : ItemCard
 {
-    [SerializeField] private Button _buyButton;
+    [SerializeField] protected TextMeshProUGUI _descriptionText;
     [SerializeField] private TextMeshProUGUI _priceText;
+    [SerializeField] private Button _buyButton;
     
-    public override void Initialize(ItemSO itemSo)
+    private ShopManager _shopManager;
+    
+    public void Initialize(ItemSO itemSO, ShopManager shopManager)
     {
-        base.Initialize(itemSo);
+        base.Initialize(itemSO);
         
-        _priceText.text = "$" + itemSo.Price.ToString();
+        _shopManager = shopManager;
+        
+        _descriptionText.text = itemSO.Description;
+        _priceText.text = "$" + itemSO.Price.ToString();
     }
 
     private void OnEnable()
@@ -27,6 +34,9 @@ public class ShopItemCard : ItemCard
 
     private void OnBuyClick()
     {
-        
+        if (_shopManager.TryPurchaseItem(_itemSO) && _itemSO.IsInfinite)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace Inventory
             [SerializeField] private int _count;
         }
 
+        public Action<InventoryItem> InventoryItemCountChangedAction { get; set; }
+
         public List<InventoryItem> InventoryItems => _inventoryItems;
         
         [SerializeField] private List<InventoryItem> _inventoryItems;
@@ -31,8 +33,13 @@ namespace Inventory
             else
             {
                 inventoryItem.Count++;
-                //TODO: Show buy animation
+                InventoryItemCountChangedAction?.Invoke(inventoryItem);
             }
+        }
+
+        public InventoryItem GetInventoryItem(ItemSO item)
+        {
+            return _inventoryItems.Find(x => x.Item == item);
         }
 
         public void UseItem(InventoryItem inventoryItem)
