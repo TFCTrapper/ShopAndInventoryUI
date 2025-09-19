@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using DI;
 
 namespace UI.Drag
 {
     public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [Inject] private IDragController _dragController;
+        [SerializeField] private DragController _dragController;
         
         private RectTransform _rectTransform;
         private GraphicRaycaster _raycaster;

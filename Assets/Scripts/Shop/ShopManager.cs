@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DI;
 using Inventory;
 using Items;
 using UnityEngine;
@@ -10,10 +9,9 @@ namespace Shop
     {
         public List<ItemSO> Items => _items;
 
+        [SerializeField] private InventoryManager _inventoryManager;
         [SerializeField] private StatsSO _stats;
         [SerializeField] private List<ItemSO> _items;
-        
-        [Inject] private IInventoryManager _inventoryManager;
 
         public void TryPurchaseItem(ItemSO item)
         {
